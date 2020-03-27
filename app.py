@@ -26,10 +26,17 @@ def get_data():
     states += territories
 
     data = [{'state': s.replace('_unitedstates', ''), 'data': response[s]} for s in states]
+    flattened_data = []
     for datum in data:
         datum['data'][:] = [d for d in datum['data'] if d['date'] >= START_DATE]
-
-    return jsonify(data)
+        for d in datum['data']:
+            flattened_data.append({'state': datum['state'],
+                                    'date': d['date'],
+                                    'confirmed': d['confirmed'],
+                                    'fatal': d['fatal'],
+                                    'recovered': d['recovered'],
+                                    'active': d['confirmed'] - d['recovered'] - d['fatal']})
+    return jsonify(flattened_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
