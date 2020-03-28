@@ -9,7 +9,8 @@ async function plot() {
     data.forEach(function(d) {
         d.timestamp = parseTime(d.date);
     });
-    
+    data.sort((a, b) => a.state > b.state);
+    console.log(data)
     // define plot dimensions and margins
     const margin = {left: 120, right: 10, top: 60, bottom: 30},
           height = 800 - (margin.left + margin.right),
@@ -30,10 +31,15 @@ async function plot() {
 
     // get array of unique state names
     const uniqueStates = [];
+    const uniqueDates = [];
     for (var i = 0; i < data.length; i++) {
         if (!uniqueStates.includes(data[i].state)) {
             uniqueStates.push(data[i].state)
         }
+        if (!uniqueDates.includes(data[i].date)) {
+            uniqueDates.push(data[i].date)
+        }
+
     }
 
     // create scales for state, date, and color
@@ -44,7 +50,7 @@ async function plot() {
                 .domain(uniqueStates)
                 .range([0, height])
                 .paddingInner(0.2);
-    const color = d3.scaleSequentialSqrt(d3.extent(data, d => d.active), d3.interpolateYlOrRd);
+    const color = d3.scaleSequentialSqrt(d3.extent(data, d => d.active_per_100k), d3.interpolateYlOrRd);
 
     console.log()
     // draw axes 
@@ -65,7 +71,7 @@ async function plot() {
         .text('COVID-19 Active Cases in the US')
         .style('font-size', '18px')
         .style('font-weight', 'bold')
-        .attr('transform', 'translate(-30,' + (-30) + ')')
+        .attr('transform', 'translate(-80,' + (-30) + ')')
         .attr('text-anchor', 'left')
     hm.append('text')
         .text('Date')
@@ -81,9 +87,9 @@ async function plot() {
         .append('rect')
         .attr('x', d => x(d.timestamp))
         .attr('y', d => y(d.state))
-        .attr('width', 30)
+        .attr('width', 0.95 * width / uniqueDates.length )
         .attr('height', y.bandwidth())
-        .attr('fill', d => isNaN(d.active) ? '#fff' : color(d.active))
+        .attr('fill', d => d.active_per_100k == 0 ? '#eee' : color(d.active_per_100k))
     /**
      * TO-DO:
      * - Adjust color scale to show more info
