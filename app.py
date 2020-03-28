@@ -2,8 +2,10 @@
 
 from flask import Flask, render_template, jsonify
 from grab_data import pull_flatten_data
+from datetime import datetime
 
-START_DATE = '2020-03-01'
+START_DATE = '2020-03-05'
+STOP_DATE = datetime.strftime(datetime.today(), '%Y-%m-%d')
 URL = 'https://www.bing.com/covid/graphdata'
 
 app = Flask(__name__)
@@ -14,7 +16,7 @@ def index():
 
 @app.route('/data')
 def data():
-    data = pull_flatten_data(URL, START_DATE)
+    data = pull_flatten_data(URL, START_DATE, STOP_DATE)
     return jsonify(data)
 
 if __name__ == '__main__':

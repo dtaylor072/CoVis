@@ -3,7 +3,7 @@ import requests
 import os
 import pandas as pd
 
-def pull_flatten_data(url, start_date):
+def pull_flatten_data(url, start_date, stop_date):
     response = requests.get(url).json()
     
     states = [k for k in response.keys() if 'unitedstates' in k][:51]
@@ -16,7 +16,7 @@ def pull_flatten_data(url, start_date):
     for datum in data:
         state_pretty_name = pop_df.loc[pop_df.name == datum['state'], 'pretty_name'].iloc[0]
         state_pop = float(pop_df.loc[pop_df.name == datum['state'], 'pop_est_19'].iloc[0])
-        datum['data'][:] = [d for d in datum['data'] if d['date'] >= start_date]
+        datum['data'][:] = [d for d in datum['data'] if (d['date'] >= start_date) and (d['date'] <= stop_date)]
         for d in datum['data']:
             active = d['confirmed'] - d['recovered'] - d['fatal']
             flattened_data.append({'state': state_pretty_name,
@@ -27,4 +27,4 @@ def pull_flatten_data(url, start_date):
                                     'active': active,
                                     'population': state_pop,
                                     'active_per_100k': 100000. * active / state_pop})
-    return flattened_data
+    return sorted(flattened_data, key = lambda d: d['state'])
