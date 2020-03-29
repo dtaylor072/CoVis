@@ -12,7 +12,7 @@ async function plot() {
     });
 
     // define plot dimensions and margins
-    const margin = {left: 120, right: 10, top: 100, bottom: 30},
+    const margin = {left: 100, right: 10, top: 100, bottom: 30},
         height = 800 - (margin.top + margin.bottom),
         width = 1100 - (margin.left + margin.right);
     
@@ -59,7 +59,8 @@ async function plot() {
         .ticks(uniqueDates.length / 2);
     const yAxis = d3.axisLeft(y)
         .tickSize(0);
-
+    const yAxis2 = d3.axisRight(y)
+        .tickSize(0);
     hm.append('g')
         .attr('class', 'x-axis')
         .call(xAxis)
@@ -69,37 +70,53 @@ async function plot() {
             .attr('transform', 'translate(' + (rectWidth / 2) + ', 0)')
     hm.select('.x-axis').selectAll('line')
         .attr('transform', 'translate(' + (rectWidth / 2) + ', 0)')
-    
     hm.append('g')
         .attr('class', 'y-axis')
         .call(yAxis)
         .call(g => g.select('.domain').remove());
-    
-    // add title, axis labels, and link to code
-    hm.append('text')
+    hm.append('g')
+        .attr('class', 'y-axis2')
+        .attr('transform', 'translate(' + (width + 38) + ',0)')
+        .call(yAxis2)
+        .call(g => g.select('.domain').remove());
+
+    // add title, links to code and data
+    const formatLatestDate = d3.timeFormat('%B %d, %Y');
+    hm.append('text') // title
         .text('COVID-19 Active Cases in the US')
         .style('font-size', '20px')
         .style('font-weight', 'bold')
         .attr('transform', 'translate(-80, -60)')
         .attr('text-anchor', 'left')
-    hm.append('text')
-        .text('Date')
+    hm.append('text') // subtitle with latest date
+        .text('As of ' + formatLatestDate(parseTime(d3.max(uniqueDates))))
         .style('font-size', '12px')
-        .attr('transform', 'translate(' + (width/2) + ',' + (-30) + ')')
-        .attr('text-anchor', 'middle')
-        .attr('fill', 'gray');
-    hm.append('text')
+        .attr('transform', 'translate(-80, -40)')
+        .attr('text-anchor', 'left')    
+    hm.append('text') // author
         .text('Author: David Taylor')
         .style('font-size', '10px')
         .attr('transform', 'translate(0,' + (height + 23 ) + ')')
-    hm.append('text')
-        .text('Source')
+    hm.append('text') // link to repo
+        .text('Code')
         .style('font-size', '10px')
         .style('fill', 'blue')
         .attr('transform', 'translate(0,' + (height + 35 ) + ')')
     hm.append('a')
         .attr('xlink:href', 'https://github.com/dtaylor072/CoVis')
-        .attr('transform', 'translate(0,' + (height + 23 ) + ')')
+        .attr('transform', 'translate(0,' + (height + 25 ) + ')')
+        .append('rect')
+            .attr('width', 30)
+            .attr('height', 10)
+            .attr('fill-opacity', 0)
+    hm.append('text') // link to data source
+        .text('Data')
+        .style('font-size', '10px')
+        .style('fill', 'blue')
+        .attr('transform', 'translate(0,' + (height + 47 ) + ')')
+    hm.append('a')
+        .attr('xlink:href', 'https://www.bing.com/covid')
+        .attr('transform', 'translate(0,' + (height + 37 ) + ')')
         .append('rect')
             .attr('width', 30)
             .attr('height', 10)
@@ -117,9 +134,8 @@ async function plot() {
     hm.call(tip)
 
     // append rectangles
-    hm.selectAll('.rects')
-        .data(data)
-        .enter()
+    var hm_selection = hm.selectAll('.hm-rect').data(data)
+    hm_selection.enter()
         .append('rect')
         .attr('class', 'hm-rect')
         .attr('x', d => x(d.timestamp))
@@ -127,7 +143,18 @@ async function plot() {
         .attr('width', rectWidth)
         .attr('height', y.bandwidth())
         .attr('fill', d => isNaN(d.active_per_100k) ? '#fff' : color(d.active_per_100k))
-        .on('mouseover', tip.show)
+        
+    hm.selectAll('.hm-rect')
+        .on('mouseover', function(d, i) {
+            tip.show(d, this);
+            d3.select(this)
+                .attr('stroke', '#0c2c84').attr('stroke-width', '2')
+        })
+        .on('mouseout', function() {
+            tip.hide();
+            d3.select(this)
+                .attr('stroke', 'none').attr('stroke-width', 'none')
+        })
     
     // add legend
     var legend = d3.legendColor()
