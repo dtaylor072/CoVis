@@ -13,8 +13,8 @@ async function plot() {
 
     // define plot dimensions and margins
     const margin = {left: 120, right: 10, top: 100, bottom: 30},
-        height = 800 - (margin.left + margin.right),
-        width = 1200 - (margin.top + margin.bottom);
+        height = 800 - (margin.top + margin.bottom),
+        width = 1100 - (margin.left + margin.right);
     
     // create svg element in DOM
     var svg = d3.select('body').append('div').attr('class', 'container')
@@ -75,7 +75,7 @@ async function plot() {
         .call(yAxis)
         .call(g => g.select('.domain').remove());
     
-    // add title and axis labels
+    // add title, axis labels, and link to code
     hm.append('text')
         .text('COVID-19 Active Cases in the US')
         .style('font-size', '20px')
@@ -88,10 +88,22 @@ async function plot() {
         .attr('transform', 'translate(' + (width/2) + ',' + (-30) + ')')
         .attr('text-anchor', 'middle')
         .attr('fill', 'gray');
+    hm.append('text')
+        .text('Source code')
+        .style('font-size', '12px')
+        .style('fill', 'blue')
+        .attr('transform', 'translate(0,' + (height + 25 ) + ')')
+    hm.append('a')
+        .attr('xlink:href', 'https://github.com/dtaylor072/CoVis')
+        .attr('transform', 'translate(0,' + (height + 13 ) + ')')
+        .append('rect')
+            .attr('width', 75)
+            .attr('height', 12)
+            .attr('fill-opacity', 0)
+ 
 
     // define d3-tip tooltip and mouseover behavior
     const tipFormat = d3.format('0.1f')
-    
     tip = d3.tip()
         .attr('class', 'd3-tip')
         .html(function(d) {
@@ -111,7 +123,7 @@ async function plot() {
         .attr('y', d => y(d.state))
         .attr('width', rectWidth)
         .attr('height', y.bandwidth())
-        .attr('fill', d => color(d.active_per_100k))
+        .attr('fill', d => isNaN(d.active_per_100k) ? '#fff' : color(d.active_per_100k))
         .on('mouseover', tip.show)
     
     // add legend
@@ -130,12 +142,6 @@ async function plot() {
         .attr('class', 'legend')
         .attr('transform', 'translate(' + (width - (7 * rectWidth)) + ',30)')
         .call(legend)
-
-    /**
-     * TO-DO:
-     * - Impute missing data
-     */
-
 }   
 plot();
 

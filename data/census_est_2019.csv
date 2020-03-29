@@ -1,1 +1,52 @@
-name	pretty_name	pop_est_19alabama	Alabama	4903185alaska	Alaska	731545arizona	Arizona	7278717arkansas	Arkansas	3017804california	California	39512223colorado	Colorado	5758736connecticut	Connecticut	3565287delaware	Delaware	973764districtofcolumbia	District of Columbia	705749florida	Florida	21477737georgia	Georgia	10617423hawaii	Hawaii	1415872idaho	Idaho	1787065illinois	Illinois	12671821indiana	Indiana	6732219iowa	Iowa	3155070kansas	Kansas	2913314kentucky	Kentucky	4467673louisiana	Louisiana	4648794maine	Maine	1344212maryland	Maryland	6045680massachusetts	Massachusetts	6892503michigan	Michigan	9986857minnesota	Minnesota	5639632mississippi	Mississippi	2976149missouri	Missouri	6137428montana	Montana	1068778nebraska	Nebraska	1934408nevada	Nevada	3080156newhampshire	New Hampshire	1359711newjersey	New Jersey	8882190newmexico	New Mexico	2096829newyork	New York	19453561northcarolina	North Carolina	10488084northdakota	North Dakota	762062ohio	Ohio	11689100oklahoma	Oklahoma	3956971oregon	Oregon	4217737pennsylvania	Pennsylvania	12801989rhodeisland	Rhode Island	1059361southcarolina	South Carolina	5148714southdakota	South Dakota	884659tennessee	Tennessee	6829174texas	Texas	28995881utah	Utah	3205958vermont	Vermont	623989virginia	Virginia	8535519washington	Washington	7614893westvirginia	West Virginia	1792147wisconsin	Wisconsin	5822434wyoming	Wyoming	578759puertorico	Puerto Rico	3193694
+pretty_name,state,pop_est_19
+Alabama,alabama,4903185
+Alaska,alaska,731545
+Arizona,arizona,7278717
+Arkansas,arkansas,3017804
+California,california,39512223
+Colorado,colorado,5758736
+Connecticut,connecticut,3565287
+Delaware,delaware,973764
+District of Columbia,districtofcolumbia,705749
+Florida,florida,21477737
+Georgia,georgia,10617423
+Hawaii,hawaii,1415872
+Idaho,idaho,1787065
+Illinois,illinois,12671821
+Indiana,indiana,6732219
+Iowa,iowa,3155070
+Kansas,kansas,2913314
+Kentucky,kentucky,4467673
+Louisiana,louisiana,4648794
+Maine,maine,1344212
+Maryland,maryland,6045680
+Massachusetts,massachusetts,6892503
+Michigan,michigan,9986857
+Minnesota,minnesota,5639632
+Mississippi,mississippi,2976149
+Missouri,missouri,6137428
+Montana,montana,1068778
+Nebraska,nebraska,1934408
+Nevada,nevada,3080156
+New Hampshire,newhampshire,1359711
+New Jersey,newjersey,8882190
+New Mexico,newmexico,2096829
+New York,newyork,19453561
+North Carolina,northcarolina,10488084
+North Dakota,northdakota,762062
+Ohio,ohio,11689100
+Oklahoma,oklahoma,3956971
+Oregon,oregon,4217737
+Pennsylvania,pennsylvania,12801989
+Rhode Island,rhodeisland,1059361
+South Carolina,southcarolina,5148714
+South Dakota,southdakota,884659
+Tennessee,tennessee,6829174
+Texas,texas,28995881
+Utah,utah,3205958
+Vermont,vermont,623989
+Virginia,virginia,8535519
+Washington,washington,7614893
+West Virginia,westvirginia,1792147
+Wisconsin,wisconsin,5822434
+Wyoming,wyoming,578759
