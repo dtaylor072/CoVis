@@ -1,52 +1,1 @@
-pretty_name,state,pop_est_19
-Alabama,alabama,4903185
-Alaska,alaska,731545
-Arizona,arizona,7278717
-Arkansas,arkansas,3017804
-California,california,39512223
-Colorado,colorado,5758736
-Connecticut,connecticut,3565287
-Delaware,delaware,973764
-District of Columbia,districtofcolumbia,705749
-Florida,florida,21477737
-Georgia,georgia,10617423
-Hawaii,hawaii,1415872
-Idaho,idaho,1787065
-Illinois,illinois,12671821
-Indiana,indiana,6732219
-Iowa,iowa,3155070
-Kansas,kansas,2913314
-Kentucky,kentucky,4467673
-Louisiana,louisiana,4648794
-Maine,maine,1344212
-Maryland,maryland,6045680
-Massachusetts,massachusetts,6892503
-Michigan,michigan,9986857
-Minnesota,minnesota,5639632
-Mississippi,mississippi,2976149
-Missouri,missouri,6137428
-Montana,montana,1068778
-Nebraska,nebraska,1934408
-Nevada,nevada,3080156
-New Hampshire,newhampshire,1359711
-New Jersey,newjersey,8882190
-New Mexico,newmexico,2096829
-New York,newyork,19453561
-North Carolina,northcarolina,10488084
-North Dakota,northdakota,762062
-Ohio,ohio,11689100
-Oklahoma,oklahoma,3956971
-Oregon,oregon,4217737
-Pennsylvania,pennsylvania,12801989
-Rhode Island,rhodeisland,1059361
-South Carolina,southcarolina,5148714
-South Dakota,southdakota,884659
-Tennessee,tennessee,6829174
-Texas,texas,28995881
-Utah,utah,3205958
-Vermont,vermont,623989
-Virginia,virginia,8535519
-Washington,washington,7614893
-West Virginia,westvirginia,1792147
-Wisconsin,wisconsin,5822434
-Wyoming,wyoming,578759
+state	pop_est_19Alabama	4903185Alaska	731545Arizona	7278717Arkansas	3017804California	39512223Colorado	5758736Connecticut	3565287Delaware	973764District of Columbia	705749Florida	21477737Georgia	10617423Hawaii	1415872Idaho	1787065Illinois	12671821Indiana	6732219Iowa	3155070Kansas	2913314Kentucky	4467673Louisiana	4648794Maine	1344212Maryland	6045680Massachusetts	6892503Michigan	9986857Minnesota	5639632Mississippi	2976149Missouri	6137428Montana	1068778Nebraska	1934408Nevada	3080156New Hampshire	1359711New Jersey	8882190New Mexico	2096829New York	19453561North Carolina	10488084North Dakota	762062Ohio	11689100Oklahoma	3956971Oregon	4217737Pennsylvania	12801989Rhode Island	1059361South Carolina	5148714South Dakota	884659Tennessee	6829174Texas	28995881Utah	3205958Vermont	623989Virginia	8535519Washington	7614893West Virginia	1792147Wisconsin	5822434Wyoming	578759

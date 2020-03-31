@@ -1,11 +1,11 @@
 #! venv/bin/python
 
 from flask import Flask, render_template, jsonify
-from grab_data import pull_flatten_data
+from grab_data import retrieve_data
 from datetime import datetime
 
-START_DATE = '2020-03-05'
-URL = 'https://www.bing.com/covid/graphdata'
+START_DATE = '2020-03-01'
+URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv'
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def index():
 
 @app.route('/data')
 def data():
-    data = pull_flatten_data(URL, START_DATE)
+    data = retrieve_data(URL, START_DATE)
     return jsonify(data)
 
 if __name__ == '__main__':

@@ -19,7 +19,7 @@ async function plot() {
     // create svg element in DOM
     var svg = d3.select('body').append('div').attr('class', 'container')
         .append('svg')
-        .attr('width', width*1.5)
+        .attr('width', width*1.7)
         .attr('height', height*1.5)
         .style('font', '10px sans-serif');
     
@@ -50,10 +50,10 @@ async function plot() {
         .domain(uniqueStates)
         .range([0, height])
         .paddingInner(0.2);
-    const color = d3.scaleSequentialSymlog(d3.extent(data, d => d.active_per_100k), d3.interpolateYlOrRd);
-
+    const color = d3.scaleSequentialSymlog(d3.extent(data, d => d.new_cases_per_100k), d3.interpolateYlOrRd);
+    
     // draw axes 
-    const dateFormat = d3.timeFormat('%m/%d')
+    const dateFormat = d3.timeFormat('%m/%d');
     const xAxis = d3.axisTop(x)
         .tickFormat(dateFormat)
         .ticks(uniqueDates.length / 2);
@@ -76,60 +76,77 @@ async function plot() {
         .call(g => g.select('.domain').remove());
     hm.append('g')
         .attr('class', 'y-axis2')
-        .attr('transform', 'translate(' + (width + 38) + ',0)')
+        .attr('transform', 'translate(' + (width + 31) + ',0)')
         .call(yAxis2)
         .call(g => g.select('.domain').remove());
 
     // add title, links to code and data
-    const formatLatestDate = d3.timeFormat('%B %d, %Y');
+    const recentData = data.filter(d => d.date == d3.max(uniqueDates))
+    const totalCases = d3.sum(recentData, d => d.cases),
+        newCases = d3.sum(recentData, d => d.new_cases);
+
+    const formatLatestDate = d3.timeFormat('%B %d, %Y'),
+        caseFormat = d3.format(',.0f');
+
     hm.append('text') // title
-        .text('COVID-19 Active Cases in the US')
+        .text('COVID-19 Daily Confirmed New Cases in the US')
         .style('font-size', '20px')
         .style('font-weight', 'bold')
         .attr('transform', 'translate(-80, -60)')
-        .attr('text-anchor', 'left')
+        .attr('text-anchor', 'left');
     hm.append('text') // subtitle with latest date
         .text('As of ' + formatLatestDate(parseTime(d3.max(uniqueDates))))
         .style('font-size', '12px')
         .attr('transform', 'translate(-80, -40)')
-        .attr('text-anchor', 'left')    
+        .attr('text-anchor', 'left');
+    hm.append('text') // subtitle with total new cases
+        .text('New Cases: ' + caseFormat(newCases))
+        .style('font-size', '12px')
+        .attr('transform', 'translate(75, -40)')
+        .attr('text-anchor', 'left');
+    hm.append('text') // subtitle with total cases to date
+        .text('Total Confirmed Cases: ' + caseFormat(totalCases))
+        .style('font-size', '12px')
+        .attr('transform', 'translate(215, -40)')
+        .attr('text-anchor', 'left');
     hm.append('text') // author
         .text('Author: David Taylor')
         .style('font-size', '10px')
-        .attr('transform', 'translate(0,' + (height + 23 ) + ')')
+        .attr('transform', 'translate(0,' + (height + 23 ) + ')');
     hm.append('text') // link to repo
-        .text('Code')
+        .text('Source')
         .style('font-size', '10px')
         .style('fill', 'blue')
-        .attr('transform', 'translate(0,' + (height + 35 ) + ')')
+        .attr('transform', 'translate(0,' + (height + 35 ) + ')');
     hm.append('a')
         .attr('xlink:href', 'https://github.com/dtaylor072/CoVis')
         .attr('transform', 'translate(0,' + (height + 25 ) + ')')
         .append('rect')
-            .attr('width', 30)
+            .attr('width', 40)
             .attr('height', 10)
-            .attr('fill-opacity', 0)
+            .attr('fill-opacity', 0);
     hm.append('text') // link to data source
-        .text('Data')
+        .text('Data provided by The New York Times')
         .style('font-size', '10px')
         .style('fill', 'blue')
-        .attr('transform', 'translate(0,' + (height + 47 ) + ')')
+        .attr('transform', 'translate(0,' + (height + 47 ) + ')');
     hm.append('a')
-        .attr('xlink:href', 'https://www.bing.com/covid')
+        .attr('xlink:href', 'https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html')
         .attr('transform', 'translate(0,' + (height + 37 ) + ')')
         .append('rect')
-            .attr('width', 30)
+            .attr('width', 175)
             .attr('height', 10)
-            .attr('fill-opacity', 0)
+            .attr('fill-opacity', 0);
  
     // define d3-tip tooltip and mouseover behavior
-    const tipFormat = d3.format('0.1f')
+    
     tip = d3.tip()
         .attr('class', 'd3-tip')
         .html(function(d) {
             return '<span style="color:white"> <strong>' + d.state + ' </strong> ' +
                     dateFormat(d.timestamp) + '</span> <br>' +
-                    'Active/100k: <span style="color:white">' + tipFormat(d.active_per_100k) + '</span>'
+                    'New Cases: <span style="color:white">' + caseFormat(d.new_cases) + '</span> <br>' +
+                    'Total Cases: <span style="color:white">' + caseFormat(d.cases) + '</span>'
         })
     hm.call(tip)
 
@@ -142,7 +159,7 @@ async function plot() {
         .attr('y', d => y(d.state))
         .attr('width', rectWidth)
         .attr('height', y.bandwidth())
-        .attr('fill', d => isNaN(d.active_per_100k) ? '#fff' : color(d.active_per_100k))
+        .attr('fill', d => isNaN(d.new_cases_per_100k) ? '#fff' : color(d.new_cases_per_100k))
         
     hm.selectAll('.hm-rect')
         .on('mouseover', function(d, i) {
@@ -159,7 +176,7 @@ async function plot() {
     // add legend
     var legend = d3.legendColor()
         .scale(color)
-        .title('Active Cases per 100,000 People')
+        .title('New Confirmed Cases per 100,000 People')
         .orient('horizontal')
         .shapeWidth(rectWidth)
         .shapeHeight(y.bandwidth())
@@ -172,6 +189,6 @@ async function plot() {
         .attr('class', 'legend')
         .attr('transform', 'translate(' + (width - (7 * rectWidth)) + ',30)')
         .call(legend)
-}   
+}
 plot();
 

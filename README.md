@@ -1,5 +1,5 @@
 # CoVis
-Heatmap created with [D3.js](https://d3js.org/) which shows how the Active COVID-19 cases per 100,000 people in each US state has evolved over time. Data is sourced from Microsoft's Bing COVID-19 API located [here](https://www.bing.com/covid/graphdata).
+Heatmap created with [D3.js](https://d3js.org/) in which color visually encodes the number of new confirmed COVID-19 cases per 100,000 people in each US state per day. Data is sourced from [The New York Times](https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html), based on reports from state and local health agencies. Data is updated daily. Inspiration provided by [these graphics](http://graphics.wsj.com/infectious-diseases-and-vaccines/) created by the WSJ.
 
 ![demo image](images/demo.png)
 
