@@ -2,9 +2,8 @@
 
 from flask import Flask, render_template, jsonify
 from grab_data import retrieve_data
-from datetime import datetime
 
-START_DATE = '2020-03-01'
+START_DATE = '2020-03-07'
 URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv'
 
 app = Flask(__name__)
