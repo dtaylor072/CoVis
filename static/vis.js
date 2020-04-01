@@ -89,8 +89,8 @@ async function plot() {
         .attr('font-weight', 'bold')
     /* add title, links to code and data */
     const recentData = data.filter(d => d.date == d3.max(uniqueDates))
-    const totalCases = d3.sum(recentData, d => d.cases),
-        newCases = d3.sum(recentData, d => d.new_cases);
+    const totalCases = recentData.filter(d => d.state == 'US Total')[0].cases,
+        newCases = recentData.filter(d => d.state == 'US Total')[0].new_cases;
 
     const formatLatestDate = d3.timeFormat('%B %d, %Y'),
         caseFormat = d3.format(',.0f');
