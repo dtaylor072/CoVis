@@ -126,7 +126,7 @@ async function plot() {
         .style('fill', 'blue')
         .attr('transform', 'translate(0,' + (height + 35 ) + ')');
     hm.append('a')
-        .attr('xlink:href', 'https:/*github.com/dtaylor072/CoVis')
+        .attr('xlink:href', 'https://github.com/dtaylor072/CoVis')
         .attr('transform', 'translate(0,' + (height + 25 ) + ')')
         .append('rect')
             .attr('width', 40)
@@ -138,7 +138,7 @@ async function plot() {
         .style('fill', 'blue')
         .attr('transform', 'translate(0,' + (height + 47 ) + ')');
     hm.append('a')
-        .attr('xlink:href', 'https:/*www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html')
+        .attr('xlink:href', 'https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html')
         .attr('transform', 'translate(0,' + (height + 37 ) + ')')
         .append('rect')
             .attr('width', 175)

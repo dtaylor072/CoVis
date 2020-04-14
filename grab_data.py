@@ -23,6 +23,7 @@ def retrieve_data(url, start_date='2020-03-01'):
     df.fillna(0., inplace=True)
 
     df['new_cases'] = df.groupby(['state'])['cases'].transform(lambda x: x.diff())
+    df.loc[df.new_cases < 0, 'new_cases'] = 0.
     df['case_pct_growth'] = df.groupby(['state'])['cases'].transform(lambda x: x.pct_change()).replace([np.inf, -np.inf], np.nan)
     df['cases_per_100k'] = 100_000. * df['cases'] / df['pop_est_19']
     df['deaths_per_100k'] = 100_000. * df['deaths'] / df['pop_est_19']
